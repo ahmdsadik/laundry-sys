@@ -14,5 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+    \App\Models\User::where('role',\App\Enums\Roles::EMPLOYEE)->get();
+
     return view('welcome');
 });
