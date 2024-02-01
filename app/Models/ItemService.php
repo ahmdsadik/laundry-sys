@@ -12,6 +12,8 @@ class ItemService extends Model
 
     public $timestamps = false;
 
+    protected $table = 'item_service';
+
     protected $fillable = [
         'service_id',
         'item_id',
