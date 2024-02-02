@@ -50,4 +50,14 @@ class User extends Authenticatable
         'password' => 'hashed',
         'role' => Roles::class
     ];
+
+    public function getReadableRoleAttribute(): string
+    {
+        return match ($this->role) {
+            Roles::ADMIN => 'أدمن',
+            Roles::EMPLOYEE => 'موظف',
+            default => 'موظف'
+        };
+    }
+
 }

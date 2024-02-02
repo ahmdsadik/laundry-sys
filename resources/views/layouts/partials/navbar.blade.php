@@ -47,11 +47,7 @@
                                         <span class="fw-medium d-block">{{$user->first_name . ' ' . $user->last_name}}</span>
                                     @endauth
                                     <small class="text-muted">
-                                        @if ($user->role)
-                                            ادمن
-                                        @else
-                                            موظف
-                                        @endif
+                                        {{ $user->readable_role }}
                                     </small>
                                 </div>
                             </div>
