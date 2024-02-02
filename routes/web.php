@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemServiceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
@@ -26,6 +27,7 @@ Route::get('/dashboard', function () {
 
 Route::resource('items-services', ItemServiceController::class)->except('show');
 Route::resource('services', ServiceController::class)->except('show');
+Route::resource('items', ItemController::class)->except('show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
