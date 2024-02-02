@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ItemServiceController;
@@ -27,6 +28,7 @@ Route::get('/overview', function () {
 
 Route::resource('items-services', ItemServiceController::class)->except('show');
 Route::resource('services', ServiceController::class)->except('show');
+Route::resource('items', ItemController::class)->except('show');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
