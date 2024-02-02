@@ -8,25 +8,18 @@
         </a>
     </div>
 
-    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+    <div class="navbar-nav-right d-flex align-items-center justify-content-between" id="navbar-collapse">
         <!-- Search -->
         <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
                 <i class="bx bx-search fs-4 lh-0"></i>
                 <input type="text" class="form-control border-0 shadow-none ps-1 ps-sm-2"
-                    placeholder="Search..." aria-label="Search..." />
+                    placeholder="بحث..." aria-label="Search..." />
             </div>
         </div>
         <!-- /Search -->
 
-        <ul class="navbar-nav flex-row align-items-center ms-auto">
-            <!-- Place this tag where you want the button to render. -->
-            <li class="nav-item lh-1 me-3">
-                <a class="github-button"
-                    href="https://github.com/themeselection/sneat-html-admin-template-free"
-                    data-icon="octicon-star" data-size="large" data-show-count="true"
-                    aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
-            </li>
+        <ul class="navbar-nav flex-row align-items-center">
 
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -46,9 +39,20 @@
                                             class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </div>
-                                <div class="flex-grow-1">
-                                    <span class="fw-medium d-block">John Doe</span>
-                                    <small class="text-muted">Admin</small>
+                                <div class="flex-grow-1" style="text-align:start;padding-right:15px">
+                                    @php
+                                        $user = Auth::user();
+                                    @endphp
+                                    @auth
+                                        <span class="fw-medium d-block">{{$user->first_name . ' ' . $user->last_name}}</span>
+                                    @endauth
+                                    <small class="text-muted">
+                                        @if ($user->role)
+                                            ادمن
+                                        @else
+                                            موظف
+                                        @endif
+                                    </small>
                                 </div>
                             </div>
                         </a>
@@ -57,35 +61,24 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" style="text-align:start" href="#">
                             <i class="bx bx-user me-2"></i>
-                            <span class="align-middle">My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <i class="bx bx-cog me-2"></i>
-                            <span class="align-middle">Settings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <span class="d-flex align-items-center align-middle">
-                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                <span class="flex-grow-1 align-middle ms-1">Billing</span>
-                                <span
-                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                            </span>
+                            <span class="align-middle">ملفي الشخصي</span>
                         </a>
                     </li>
                     <li>
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="javascript:void(0);">
-                            <i class="bx bx-power-off me-2"></i>
-                            <span class="align-middle">Log Out</span>
-                        </a>
+                        <!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a class="dropdown-item" href="{{route('logout')}}" style="text-align:start" onclick="event.preventDefault();
+                            this.closest('form').submit();">
+                                <i class="bx bx-power-off me-2"></i>
+                                <span class="align-middle">خروج</span>
+                            </a>
+                        </form>
                     </li>
                 </ul>
             </li>
