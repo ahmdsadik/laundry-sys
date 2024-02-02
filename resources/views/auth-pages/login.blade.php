@@ -10,12 +10,12 @@
         <div class="mb-3">
             <x-input-label for="email" :value="__('البريد الالكتروني')" />
             <x-text-input id="email" placeholder="ادخل البريد الالكتروني" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-error key="email"/>
         </div>
         <div class="mb-3">
             <x-input-label for="password" :value="__('الرقم السري')" />
             <x-text-input id="password" placeholder="ادخل الرقم السري" type="password" name="password" :value="old('password')" required autofocus autocomplete="current-password" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-error key="password"/>
         </div>
         <div class="mb-3">
             <div class="d-flex gap-2">
