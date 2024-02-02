@@ -5,6 +5,13 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+@font-face {
+    font-family: 'Cairo';
+    src: local('Cairo'), url('../fonts/Cairo/Cairo-VariableFont_slnt,wght.ttf') format('truetype');
+    /* Add additional font properties if needed */
+}
+
 :root {
     --bs-blue: #007bff;
     --bs-indigo: #6610f2;
@@ -44,8 +51,8 @@
     --bs-black-rgb: 67, 89, 113;
     --bs-body-color-rgb: 105, 122, 141;
     --bs-body-bg-rgb: 245, 245, 249;
-    --bs-font-sans-serif: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    --bs-font-monospace: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --bs-font-sans-serif: "Cairo";
+    --bs-font-monospace: "Cairo";
     --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
     --bs-root-font-size: 16px;
     --bs-body-font-family: var(--bs-font-sans-serif);
@@ -69,6 +76,7 @@
     --bs-code-color: #e83e8c;
     --bs-highlight-bg: #ffeecc;
 }
+
 
 *,
 *::before,
@@ -2092,8 +2100,8 @@ progress {
 }
 .form-label {
     margin-bottom: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: 0.1rem;
+    font-weight: 700;
     color: #566a7f;
 }
 
@@ -20637,7 +20645,7 @@ html:not(.layout-footer-fixed) .content-wrapper {
 .layout-navbar-fixed body:not(.modal-open) .layout-content-navbar .layout-navbar,
 .layout-menu-fixed body:not(.modal-open) .layout-content-navbar .layout-navbar,
 .layout-menu-fixed-offcanvas body:not(.modal-open) .layout-content-navbar .layout-navbar {
-    z-index: 1000;
+    z-index: 1075;
 }
 
 .layout-footer-fixed .content-footer {
@@ -20677,7 +20685,7 @@ html:not(.layout-footer-fixed) .content-wrapper {
     }
     .layout-menu-fixed body:not(.modal-open) .layout-navbar-full .layout-menu,
     .layout-menu-fixed-offcanvas body:not(.modal-open) .layout-navbar-full .layout-menu {
-        z-index: 1000;
+        z-index: 1075;
     }
     .layout-navbar-fixed body:not(.modal-open) .layout-content-navbar .layout-menu,
     .layout-menu-fixed body:not(.modal-open) .layout-content-navbar .layout-menu,
