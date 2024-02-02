@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
 <html
-  lang="en"
+  lang="{{ config('app.locale') }}"
   class="light-style layout-menu-fixed layout-compact"
-  dir="ltr"
+  dir="{{ config('app.dir') }}"
   data-theme="theme-default"
   data-assets-path="../assets/"
   data-template="vertical-menu-template-free">

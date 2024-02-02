@@ -830,3 +830,11 @@ html:not(.layout-menu-collapsed) .bg-menu-theme .menu-inner .menu-item .menu-lin
 .layout-footer-fixed .content-footer {
   box-shadow: 0 0 0.375rem 0.25rem rgba(161, 172, 184, 0.15);
 }
+.layout-menu-fixed .layout-menu:dir(rtl){
+    left: unset;
+    right: 0;
+}
+.layout-content-navbar .layout-page:dir(rtl){
+    padding: unset;
+    padding-right: 16.25rem;
+}

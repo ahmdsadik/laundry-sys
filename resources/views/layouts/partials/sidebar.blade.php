@@ -1,10 +1,7 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-    <div class="app-brand demo">
-        <a href="index.html" class="app-brand-link">
-            <span class="app-brand-logo demo">
-                Logo
-            </span>
-            <span class="app-brand-text demo menu-text fw-bold ms-2">Laundry</span>
+    <div class="app-brand justify-content-center demo">
+        <a href="{{ route('overview') }}" class="app-brand-link">
+            <img src="{{asset('assets/img/logo.webp')}}" style="width: 160px" alt="">
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -16,10 +13,16 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
-        <li class="menu-item active open">
-            <a href="javascript:void(0);" class="menu-link">
+        <li class="menu-item {{ Route::currentRouteName() == 'overview' ? 'active':''}}">
+            <a href="{{ route('overview') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Dashboards">Dashboard</div>
+                <div data-i18n="Dashboards">نظرة عامة</div>
+            </a>
+        </li>
+        <li class="menu-item {{ Route::currentRouteName() == 'users.index' ? 'active':''}}">
+            <a href="{{ route('users.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Dashboards">الموظفون</div>
             </a>
         </li>
     </ul>

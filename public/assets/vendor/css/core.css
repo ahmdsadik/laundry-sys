@@ -18558,3 +18558,10 @@ html:not(.layout-footer-fixed) .content-wrapper {
 .footer.bg-light hr {
   border-color: rgba(105, 122, 141, 0.0783835294);
 }
+.navbar-expand-xl .navbar-nav .dropdown-menu{
+    left: -23px;
+    right: unset;
+    top: unset;
+    bottom: -10px;
+    transform: translateY(100%);
+}
