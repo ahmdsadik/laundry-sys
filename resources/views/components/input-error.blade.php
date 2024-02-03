@@ -1,5 +1,5 @@
 @props(['key'])
 
 @error($key)
-    <span class="text-danger mt-2">{{ $message }}</span>
+    <span class="text-danger my-2 d-block">{{ $message }}</span>
 @enderror
