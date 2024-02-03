@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ItemServiceController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/overview', function () {
     return view('overview');
-})->middleware(['auth'])->name('overview');
+})->middleware(['auth', 'check-status'])->name('overview');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -30,11 +30,21 @@ Route::resource('items-services', ItemServiceController::class)->except('show');
 Route::resource('services', ServiceController::class)->except('show');
 Route::resource('items', ItemController::class)->except('show');
 
+
+
+
+Route::post('users/toggle-suspension/{user}', [UserController::class, 'toggleSuspension'])->name('users.suspension.toggle');
+Route::post('users/reset-default-password/{user}', [UserController::class, 'resetPassword'])->name('users.password-reset');
+Route::resource('users', UserController::class)->except('show')->middleware('is-admin');
+
+
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/users', [AuthenticatedSessionController::class, 'index'])->name('users.index');
 });
 
 require __DIR__ . '/auth.php';
