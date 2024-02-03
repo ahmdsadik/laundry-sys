@@ -26,7 +26,7 @@
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                     data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="{{ asset('assets/img/avatars/user.png') }}" alt class="w-px-40 h-auto rounded-circle pull-up" />
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -35,19 +35,14 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt
-                                            class="w-px-40 h-auto rounded-circle" />
+                                        <img src="{{ asset('assets/img/avatars/user.png') }}" alt
+                                            class="w-px-40 h-auto rounded-circle pull-up" />
                                     </div>
                                 </div>
                                 <div class="flex-grow-1" style="text-align:start;padding-right:15px">
-                                    @php
-                                        $user = Auth::user();
-                                    @endphp
-                                    @auth
-                                        <span class="fw-medium d-block">{{$user->first_name . ' ' . $user->last_name}}</span>
-                                    @endauth
+                                        <span class="fw-medium d-block">{{ auth()->user()->name }}</span>
                                     <small class="text-muted">
-                                        {{ $user->readable_role }}
+                                        {{ auth()->user()->readable_role }}
                                     </small>
                                 </div>
                             </div>
