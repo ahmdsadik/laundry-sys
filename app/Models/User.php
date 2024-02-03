@@ -81,4 +81,8 @@ class User extends Authenticatable
         return auth()->user()->role === Roles::ADMIN;
     }
 
+    public function isSuspended(): bool
+    {
+        return $this->status === UserStatus::SUSPENDED;
+    }
 }

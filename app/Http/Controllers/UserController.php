@@ -6,7 +6,6 @@ use App\Enums\UserStatus;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -14,7 +13,7 @@ class UserController extends Controller
     {
         return view('user.index',
             [
-                'users' => User::whereNot('id', auth()->id())->paginate()
+                'users' => User::whereNotIn('id', [1, auth()->id()])->paginate()
             ]
         );
     }

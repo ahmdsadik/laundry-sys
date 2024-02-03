@@ -10,7 +10,7 @@ class UserUpdateRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return auth()->user()->role === Roles::ADMIN;
+        return auth()->user()->isAdmin();
     }
 
     public function rules(): array
