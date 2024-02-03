@@ -33,8 +33,8 @@
                         <td><span
                                 @class([
                                         'badge me-1',
-                                        'bg-label-hover-primary' => $user->status === \App\Enums\UserStatus::ACTIVE,
-                                        'bg-label-hover-danger' => $user->status === \App\Enums\UserStatus::SUSPENDED
+                                        'bg-label-hover-primary' => !$user->isSuspended(),
+                                        'bg-label-hover-danger' => $user->isSuspended()
                                 ])
                             >{{ $user->readable_status }}</span></td>
                         <td>
@@ -59,7 +59,7 @@
                                         <a class="dropdown-item" href="{{route('users.suspension.toggle',$user)}}"
                                            style="text-align:start" onclick="event.preventDefault();
                             this.closest('form').submit();">
-                                            @if($user->status === \App\Enums\UserStatus::SUSPENDED)
+                                            @if($user->isSuspended())
                                                 <i class='bx bx-transfer-alt me-1'></i>
                                                 تفعيل الحساب
                                             @else
@@ -90,6 +90,10 @@
                 @endforelse
                 </tbody>
             </table>
+
+            <div class="mt-3 px-3">
+                {{ $users->links() }}
+            </div>
         </div>
     </div>
     <!--/ Basic Bootstrap Table -->
