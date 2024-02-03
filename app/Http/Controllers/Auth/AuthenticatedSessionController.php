@@ -12,11 +12,6 @@ use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-
-    public function index(){
-        return view('users.index');
-    }
-
     /**
      * Display the login view.
      */

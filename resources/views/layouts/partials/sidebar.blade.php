@@ -13,17 +13,25 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
-        <li class="menu-item {{ Route::currentRouteName() == 'overview' ? 'active':''}}">
+        <li
+            @class(['menu-item',
+                        'active' => request()->routeIs('overview')
+                    ])>
             <a href="{{ route('overview') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Dashboards">نظرة عامة</div>
             </a>
         </li>
-        <li class="menu-item {{ Route::currentRouteName() == 'users.index' ? 'active':''}}">
-            <a href="{{ route('users.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Dashboards">الموظفون</div>
-            </a>
-        </li>
+        @if(auth()->user()->isAdmin())
+            <li
+                @class(['menu-item',
+                           'active' => request()->routeIs('users.index')
+                       ])>
+                <a href="{{ route('users.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                    <div data-i18n="Dashboards">الموظفون</div>
+                </a>
+            </li>
+        @endif
     </ul>
 </aside>

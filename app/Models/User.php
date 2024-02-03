@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enums\Roles;
+use App\Enums\UserStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -13,6 +14,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public const DEFAULT_PASSWORD = 'altaqwa1230';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,13 +24,13 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
-        'hire_date',
-        'role',
         'phone',
         'email',
         'password',
+        'role',
+        'status',
+        'hire_date',
         'email_verified_at',
-        'remember_token',
     ];
 
     /**
@@ -48,16 +51,34 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'role' => Roles::class
+        'role' => Roles::class,
+        'status' => UserStatus::class
     ];
 
     public function getReadableRoleAttribute(): string
     {
         return match ($this->role) {
-            Roles::ADMIN => 'أدمن',
-            Roles::EMPLOYEE => 'موظف',
+            Roles::ADMIN => 'مدير',
             default => 'موظف'
         };
+    }
+
+    public function getReadableStatusAttribute(): string
+    {
+        return match ($this->status) {
+            UserStatus::ACTIVE => 'نشط',
+            default => 'موقوف'
+        };
+    }
+
+    public function getNameAttribute(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function isAdmin(): bool
+    {
+        return auth()->user()->role === Roles::ADMIN;
     }
 
 }
