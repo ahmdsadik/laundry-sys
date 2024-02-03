@@ -77,7 +77,6 @@
                                             <i class="bx bx-trash me-1"></i>حذف
                                         </a>
                                     </form>
-
                                 </div>
                             </div>
                         </td>
