@@ -18,12 +18,22 @@ class PasswordController extends Controller
         $validated = $request->validateWithBag('updatePassword', [
             'current_password' => ['required', 'current_password'],
             'password' => ['required', Password::defaults(), 'confirmed'],
-        ]);
+        ],[],
+            [
+                'current_password' => 'كلمة المرور الحالية',
+                'password' => 'كلمة المرور الجديدة',
+            ]
+        );
 
-        $request->user()->update([
-            'password' => Hash::make($validated['password']),
-        ]);
+        try {
+            $request->user()->update([
+                'password' => Hash::make($validated['password']),
+            ]);
+        }catch (\Exception $e) {
+            toast('حدث خطأ اتثاء محاولة تغيير كلمة المرور', 'error');
+        }
+        toast('تم تغيير كلمة المرور بنجاح', 'success');
 
-        return back()->with('status', 'password-updated');
+        return back();
     }
 }
