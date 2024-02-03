@@ -10,7 +10,7 @@ class CheckUserStatusMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->status === UserStatus::SUSPENDED) {
+        if (auth()->user()->isSuspended()) {
             auth()->logout();
             return to_route('login')->withErrors(['check' => 'تم إيقاف هذا الحساب. تواصل مع أحد المسؤولين.']);
         }

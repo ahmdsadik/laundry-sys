@@ -1,3 +1,12 @@
+@php
+    function activeMainLi($route):string {
+        return request()->routeIs($route) ? 'active open':'';
+    }
+
+    function activeChildLi($route):string {
+        return request()->routeIs($route) ? 'active':'';
+    }
+@endphp
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand justify-content-center demo">
         <a href="{{ route('overview') }}" class="app-brand-link">
@@ -22,15 +31,25 @@
                 <div data-i18n="Dashboards">نظرة عامة</div>
             </a>
         </li>
-        @if(auth()->user()->isAdmin())
-            <li
-                @class(['menu-item',
-                           'active' => request()->routeIs('users.index')
-                       ])>
-                <a href="{{ route('users.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                    <div data-i18n="Dashboards">الموظفون</div>
+
+        @if( auth()->user()->isAdmin() )
+            <li class="mt-2 menu-item {{ activeMainLi('users.*') }}">
+                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                    <i class='bx bxs-user me-3'></i>
+                    <div>الموظفون</div>
                 </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ activeChildLi('users.index') }}">
+                        <a href="{{ route('users.index') }}" class="menu-link">
+                            <div>قائمة الموظفون</div>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ activeChildLi('users.create') }}">
+                        <a href="{{ route('users.create') }}" class="menu-link">
+                            <div>إضافة موظف</div>
+                        </a>
+                    </li>
+                </ul>
             </li>
         @endif
     </ul>
