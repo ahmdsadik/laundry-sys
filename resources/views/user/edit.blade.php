@@ -22,7 +22,7 @@
                             </div>
                             <div class="mb-3 col-md-6">
                                 <label for="username"
-                                       class="form-label">الأسم الثاني</label>
+                                       class="form-label">الأسم الأخير</label>
                                 <input type="text" class="form-control" id="last_name"
                                        required
                                        name="last_name" value="{{ old('last_name',$user->last_name) }}"/>
