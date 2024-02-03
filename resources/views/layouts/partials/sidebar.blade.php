@@ -1,10 +1,14 @@
 @php
-    function activeMainLi($route):string {
-        return request()->routeIs($route) ? 'active open':'';
+    if (!function_exists('activeMainLi')){
+        function activeMainLi($route):string {
+            return request()->routeIs($route) ? 'active open':'';
+        }
     }
 
-    function activeChildLi($route):string {
-        return request()->routeIs($route) ? 'active':'';
+    if (!function_exists('activeChildLi')){
+        function activeChildLi($route):string {
+            return request()->routeIs($route) ? 'active':'';
+        }
     }
 @endphp
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
@@ -23,9 +27,9 @@
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
         <li
-            @class(['menu-item',
-                        'active' => request()->routeIs('overview')
-                    ])>
+                @class(['menu-item',
+                            'active' => request()->routeIs('overview')
+                        ])>
             <a href="{{ route('overview') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Dashboards">نظرة عامة</div>
