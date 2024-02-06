@@ -11,7 +11,8 @@ class ItemController extends Controller
 {
     public function index()
     {
-        return view('item.index',
+        return view(
+            'item.index',
             [
                 'items' => Item::paginate()
             ]
@@ -28,18 +29,17 @@ class ItemController extends Controller
         try {
             Item::create($request->validated());
         } catch (\Exception $e) {
+            toast('حدث خطأ اتثاء محاولة اضافة الصنف', 'error');
             return to_route('items.index');
         }
+        toast('تم إضافة الصنف بنجاح', 'success');
         return to_route('items.index');
     }
 
-//    public function show(ItemService $itemService)
-//    {
-//    }
-
     public function edit(Item $item)
     {
-        return view('item.edit',
+        return view(
+            'item.edit',
             [
                 'item' => $item
             ]
@@ -51,8 +51,10 @@ class ItemController extends Controller
         try {
             $item->update($request->validated());
         } catch (\Exception $e) {
+            toast('حدث خطأ اتثاء محاولة تعديل بيانات الصنف', 'error');
             return to_route('items.index');
         }
+        toast('تم تحديث بيانات الصنف بنجاح', 'success');
         return to_route('items.index');
     }
 
