@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
 
     <!-- Page CSS -->
+    @stack('css')
 
 
     <!-- Helpers -->
@@ -101,6 +102,8 @@
     <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
     @include('sweetalert::alert')
 
+
+@stack('js')
 </body>
 
 </html>

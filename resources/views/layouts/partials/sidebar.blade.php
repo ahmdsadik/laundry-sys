@@ -1,3 +1,4 @@
+
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand justify-content-center demo">
         <a href="{{ route('overview') }}" class="app-brand-link">
@@ -13,7 +14,7 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
-        <li @class(['menu-item', 'active' => request()->routeIs('overview')])>
+
             <a href="{{ route('overview') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Dashboards">نظرة عامة</div>
