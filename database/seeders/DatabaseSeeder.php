@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Customer;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\ServiceSeeder;
@@ -21,5 +23,6 @@ class DatabaseSeeder extends Seeder
             ItemServiceSeeder::class
         ]);
 
+        Customer::factory(10)->create();
     }
 }

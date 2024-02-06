@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
@@ -29,6 +30,7 @@ Route::get('/overview', function () {
 Route::resource('items-services', ItemServiceController::class)->except('show');
 Route::resource('services', ServiceController::class)->except('show');
 Route::resource('items', ItemController::class)->except('show');
+Route::resource('customers', CustomerController::class)->except('create', 'store', 'destroy');
 
 
 

@@ -1,16 +1,7 @@
-@php
-    function activeMainLi($route):string {
-        return request()->routeIs($route) ? 'active open':'';
-    }
-
-    function activeChildLi($route):string {
-        return request()->routeIs($route) ? 'active':'';
-    }
-@endphp
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand justify-content-center demo">
         <a href="{{ route('overview') }}" class="app-brand-link">
-            <img src="{{asset('assets/img/logo.webp')}}" style="width: 160px" alt="">
+            <img src="{{ asset('assets/img/logo.webp') }}" style="width: 160px" alt="">
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -22,17 +13,14 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
-        <li
-            @class(['menu-item',
-                        'active' => request()->routeIs('overview')
-                    ])>
+        <li @class(['menu-item', 'active' => request()->routeIs('overview')])>
             <a href="{{ route('overview') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Dashboards">نظرة عامة</div>
             </a>
         </li>
 
-        @if( auth()->user()->isAdmin() )
+        @if (auth()->user()->isAdmin())
             <li class="mt-2 menu-item {{ activeMainLi('users.*') }}">
                 <a href="javascript:void(0)" class="menu-link menu-toggle">
                     <i class='bx bxs-user me-3'></i>
@@ -52,5 +40,18 @@
                 </ul>
             </li>
         @endif
+        <li class="mt-2 menu-item {{ activeMainLi('customers.*') }}">
+            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class='bx bxs-customer me-3'></i>
+                <div>العملاء</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ activeChildLi('customers.index') }}">
+                    <a href="{{ route('customers.index') }}" class="menu-link">
+                        <div>قائمة العملاء</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul>
 </aside>
