@@ -1,14 +1,13 @@
-<x-main-layout :title="config('app.name') . ' | ' . 'إضافة صنف'">
+<x-app-layout :title="config('app.name') . ' | ' . 'إضافة صنف'">
 
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('items.index') }}">الاصناف</a>
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light"><a href="{{ route('items.index') }}">الاصناف</a>
             /</span>
         إضافة صنف</h4>
 
     <div class="row">
         <div class="col-md-12">
-
-            <!-- Profile Details -->
-            <div class="card mb-4">
+            <div class="card">
                 <h5 class="card-header">بيانات الاصناف</h5>
                 <div class="card-body">
                     <form action="{{ route('items.store') }}" method="post">
@@ -30,4 +29,4 @@
             </div>
         </div>
     </div>
-</x-main-layout>
+</x-app-layout>

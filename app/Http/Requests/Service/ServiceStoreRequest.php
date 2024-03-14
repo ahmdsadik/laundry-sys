@@ -11,7 +11,7 @@ class ServiceStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->isAdministrator();
     }
 
     /**
@@ -23,14 +23,12 @@ class ServiceStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:services,name',
-            'description' => 'nullable|string'
         ];
     }
     public function attributes(): array
     {
         return [
             'name' => 'اسم الخدمه',
-            'description' => 'الوصف',
         ];
     }
 }

@@ -13,10 +13,9 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            'first_name' => $this->faker->firstName(),
-            'last_name' => $this->faker->lastName(),
+            'name' => fake('ar_EG')->name(),
             'address' => $this->faker->address(),
-            'phone' => $this->faker->phoneNumber(),
+            'phone' => $this->faker->unique()->regexify('^01[0125]{1}[0-9]{8}$'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

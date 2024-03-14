@@ -1,8 +1,8 @@
-<x-main-layout :title="config('app.name') . ' | ' . ' تعديل بيانات ' . $customer->first_name">
+<x-app-layout :title="config('app.name') . ' | ' . ' تعديل بيانات ' . $customer->first_name">
 
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('customers.index') }}">العملاء</a>
             /</span>
-        تعديل بيانات موظف</h4>
+        تعديل بيانات عميل</h4>
 
     <div class="row">
         <div class="col-md-12">
@@ -15,36 +15,28 @@
                         @method('PUT')
                         <div class="row">
 
-                            {{-- first name --}}
+                            {{--  name --}}
                             <div class="mb-3 col-md-6">
-                                <label for="first_name" class="form-label">الأسم الأول</label>
-                                <input class="form-control" type="text" id="first_name" name="first_name" required
-                                    value="{{ old('first_name', $customer->first_name) }}" />
-                                <x-input-error key="first_name" />
-                            </div>
-
-                            {{-- last name --}}
-                            <div class="mb-3 col-md-6">
-                                <label for="customername" class="form-label">الأسم الثاني</label>
-                                <input type="text" class="form-control" id="last_name" required name="last_name"
-                                    value="{{ old('last_name', $customer->last_name) }}" />
-                                <x-input-error key="last_name" />
+                                <label for="name" class="form-label">الأسم</label>
+                                <input class="form-control" type="text" id="name" name="name" required
+                                       value="{{ old('name', $customer->name) }}"/>
+                                <x-input-error key="name"/>
                             </div>
 
                             {{-- address --}}
                             <div class="mb-3 col-md-6">
                                 <label for="address" class="form-label">العنوان</label>
                                 <input class="form-control" type="text" id="address" name="address" required
-                                    value="{{ old('address', $customer->address) }}" />
-                                <x-input-error key="address" />
+                                       value="{{ old('address', $customer->address) }}"/>
+                                <x-input-error key="address"/>
                             </div>
 
                             {{-- phone --}}
                             <div class="col-md-6">
-                                <label class="form-label" for="phone">الهاتف</label>
-                                <input type="text" id="phone" name="phone" required
-                                    value="{{ old('phone', $customer->phone) }}" class="form-control" />
-                                <x-input-error key="phone" />
+                                <label class="form-label text-start"  for="phone">الهاتف</label>
+                                <input type="tel" id="phone" name="phone" required pattern="01[0125][0-9]{8}"
+                                       value="{{ old('phone', $customer->phone) }}" class="form-control text-start"/>
+                                <x-input-error key="phone"/>
                             </div>
                         </div>
 
@@ -58,4 +50,4 @@
             <!-- /Profile Details -->
         </div>
     </div>
-</x-main-layout>
+</x-app-layout>

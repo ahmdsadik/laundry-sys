@@ -1,4 +1,4 @@
-<x-main-layout :title=" config('app.name') . ' | ' . 'تعديل حسابي' ">
+<x-app-layout :title=" config('app.name') . ' | ' . 'تعديل حسابي' ">
     <h4 class="fw-bold py-3 mb-4">
         <span
             class="text-muted fw-light"> حسابي / </span> بيانات حسابي
@@ -20,5 +20,5 @@
             <!-- /Update Password -->
         </div>
     </div>
-</x-main-layout>
+</x-app-layout>
 

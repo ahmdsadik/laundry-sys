@@ -12,7 +12,9 @@ class CheckUserStatusMiddleware
     {
         if (auth()->user()->isSuspended()) {
             auth()->logout();
-            return to_route('login')->withErrors(['check' => 'تم إيقاف هذا الحساب. تواصل مع أحد المسؤولين.']);
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            return to_route('login')->withErrors(['phone' => 'تم إيقاف هذا الحساب. تواصل مع أحد المسؤولين.']);
         }
         return $next($request);
     }

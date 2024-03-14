@@ -2,44 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use App\Models\Customer;
-use App\Http\Requests\StoreCustomerRequest;
-use App\Http\Requests\UpdateCustomerRequest;
+use App\Http\Requests\Customer\CustomerUpdateRequest;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class CustomerController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return view(
-            'customer.index',
-            [
-                'customers' => Customer::paginate()
-            ]
-        );
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-
-    /**
-     * Display the specified resource.
+     * Show Customer info
+     *
+     * @param Customer $customer
+     * @return Application|Factory|View|\Illuminate\Foundation\Application|\Illuminate\View\View
      */
     public function show(Customer $customer)
     {
         return view(
             'customer.show',
             [
-                'customer' => $customer->load('orders')
+                'customer' => $customer->setRelation('orders', $customer->orders()->paginate(config('app.default_pagination')))
+                //                'orders' => $customer->orders()->paginate()
             ]
         );
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show edit form
+     *
+     * @param Customer $customer
+     * @return Application|Factory|View|\Illuminate\Foundation\Application|\Illuminate\View\View
      */
     public function edit(Customer $customer)
     {
@@ -52,25 +46,47 @@ class CustomerController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Handle update request
+     *
+     * @param CustomerUpdateRequest $request
+     * @param Customer $customer
+     * @return RedirectResponse
      */
-    public function update(UpdateCustomerRequest $request, Customer $customer)
+    public function update(CustomerUpdateRequest $request, Customer $customer)
     {
         try {
-            $customer->update($request->validated());
-        } catch (\Exception $e) {
-            toast('حدث خطأ اتثاء محاولة تعديل بيانات مستخدم', 'error');
+            if ($customer->fill($request->validated())->isDirty()) {
+                $customer->save();
+            }
+        } catch (\Throwable $throwable) {
+            toast('حدث خطأ اتثاء محاولة تعديل بيانات عميل', 'error');
             return to_route('customers.index');
         }
-        toast('تم تحديث بيانات مستخدم بنجاح', 'success');
+        toast('تم تحديث بيانات عميل بنجاح', 'success');
         return to_route('customers.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Reset Customer password
+     *
+     * @param Customer $customer
+     * @return RedirectResponse
      */
-    public function destroy(Customer $customer)
+    public function resetPassword(Customer $customer)
     {
-        //
+
+        try {
+            $default_password = Setting::firstWhere('key', 'customer-default-password');
+            if (!$default_password->value) {
+                toast('يجب تعيين كلمة مرور إفتراضية من إعدادات الموقع اولا', 'error');
+                return to_route('customers.index');
+            }
+            $customer->update(['password' => $default_password->value]);
+        } catch (\Throwable $throwable) {
+            toast('حدث خطأ اتثاء محاولة إستعادة كلمة مرور العميل', 'error');
+            return to_route('customers.index');
+        }
+        toast('تم إستعادة كلمة مرور العميل بنجاح', 'success');
+        return to_route('customers.index');
     }
 }

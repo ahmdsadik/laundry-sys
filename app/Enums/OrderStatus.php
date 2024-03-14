@@ -5,6 +5,7 @@ namespace App\Enums;
 enum OrderStatus :int
 {
     case PENDING = 1;
-    case COMPLETED = 2;
-    case CANCELLED = 3;
+    case PROCESSING = 2;
+    case COMPLETED = 3;
+    case CANCELLED = 4;
 }

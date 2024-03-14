@@ -29,7 +29,7 @@ class PasswordController extends Controller
             $request->user()->update([
                 'password' => Hash::make($validated['password']),
             ]);
-        }catch (\Exception $e) {
+        }catch (\Throwable $throwable) {
             toast('حدث خطأ اتثاء محاولة تغيير كلمة المرور', 'error');
         }
         toast('تم تغيير كلمة المرور بنجاح', 'success');

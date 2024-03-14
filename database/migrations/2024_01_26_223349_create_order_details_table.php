@@ -4,16 +4,27 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+class CreateOrderDetailsTable extends Migration
+{
     public function up(): void
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->string('quantity');
-            $table->unsignedInteger('price');
+
             $table->foreignId('order_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('item_service_id')->nullable()->constrained('item_service')->nullOnDelete();
+
+            $table->foreignId('item_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('service_id')->nullable()->constrained()->nullOnDelete();
+
+            $table->unsignedInteger('price')->nullable();
+            $table->unsignedSmallInteger('quantity');
+            $table->unsignedInteger('total_price')->nullable();
+            $table->boolean('is_payment_deferred')->default(false);
+
+            $table->mediumText('description')->nullable();
+
+            $table->unique(['order_id', 'item_id', 'quantity']);
+
             $table->timestamps();
         });
     }
@@ -22,4 +33,5 @@ return new class extends Migration {
     {
         Schema::dropIfExists('order_details');
     }
-};
+}
+

@@ -2,30 +2,39 @@
 
 namespace App\Models;
 
-use App\Models\Order;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Customer extends Model
+class Customer extends Authenticatable
 {
     use HasFactory;
+
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'address',
         'phone',
+        'password'
     ];
-    public function name(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value, $attribute) =>
-            $attribute['first_name'] . ' ' . $attribute['last_name']
-        );
-    }
 
-    public function orders()
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
+    public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    protected static function booted()
+    {
+        self::creating(function (Customer $customer) {
+            $customer->password = $customer->phone;
+        });
     }
 }

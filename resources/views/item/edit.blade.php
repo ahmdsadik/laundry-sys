@@ -1,4 +1,4 @@
-<x-main-layout :title="config('app.name') . ' | ' . ' تعديل بيانات ' . $item->first_name">
+<x-app-layout :title="config('app.name') . ' | ' . ' تعديل بيانات ' . $item->first_name">
 
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"><a href="{{ route('items.index') }}">الاصناف</a>
             /</span>
@@ -32,4 +32,4 @@
             </div>
         </div>
     </div>
-</x-main-layout>
+</x-app-layout>

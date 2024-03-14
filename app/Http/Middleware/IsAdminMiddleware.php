@@ -9,7 +9,7 @@ class IsAdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        abort_unless(auth()->user()->isAdmin(), 401);
+        abort_unless(auth()->user()->isAdministrator(), 401);
 
         return $next($request);
     }

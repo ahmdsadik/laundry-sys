@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Item;
 use App\Models\ItemService;
 use Illuminate\Database\Seeder;
+use function Laravel\Prompts\note;
+
 class ItemServiceSeeder extends Seeder
 {
     public function run(): void
@@ -123,14 +125,16 @@ class ItemServiceSeeder extends Seeder
                 'services' => [
                     1 => null,
                     2 => null
-                ]
+                ],
+                'note' => 'حسب الاتفاق'
             ],
             [
                 'name' => 'فستان أتيلية',
                 'services' => [
                     1 => null,
                     2 => null
-                ]
+                ],
+                'note' => 'حسب الاتفاق'
             ],
             [
                 'name' => 'ملاية',
@@ -147,7 +151,7 @@ class ItemServiceSeeder extends Seeder
                 ]
             ],
             [
-                'name' => 'يشكير فوطة',
+                'name' => 'بشكير فوطة',
                 'services' => [
                     2 => 5
                 ]
@@ -167,14 +171,16 @@ class ItemServiceSeeder extends Seeder
             [
                 'name' => 'الانترية',
                 'services' => [
-                    4 => null,
-                ]
+                    4 => null
+                ],
+                'note' => 'حسب الحجم'
             ],
             [
                 'name' => 'الصالون',
                 'services' => [
                     4 => null,
-                ]
+                ],
+                'note' => 'حسب الحجم'
             ],
             [
                 'name' => 'كرسي السفرة',
@@ -210,85 +216,86 @@ class ItemServiceSeeder extends Seeder
                 // المتر
                 'name' => 'سجاد',
                 'services' => [
-                    4 => 10
-                ]
+                    4 => null
+                ],
+                'note' => 'سعر المتر 10 جنية'
             ],
             [
                 'name' => 'جافظه السجاد',
                 'services' => [
-                    3 => 35
+                    4 => 35
                 ]
             ],
             [
                 'name' => 'بطانية طبقه',
                 'services' => [
-                    3 => 35
+                    4 => 35
                 ]
             ],
             [
                 'name' => 'بطانيه 2 طبقه',
                 'services' => [
-                    3 => 50
+                    4 => 50
                 ]
             ],
             [
                 'name' => 'لحاف اطفالي',
                 'services' => [
-                    3 => 35
+                    4 => 35
                 ]
             ],
             [
                 'name' => 'لحاف كبير',
                 'services' => [
-                    3 => 35
+                    4 => 35
                 ]
             ],
             [
                 'name' => 'كبرتة',
                 'services' => [
-                    3 => 45
+                    4 => 45
                 ]
             ],
             [
                 'name' => 'دفاية',
                 'services' => [
-                    3 => 20
+                    4 => 20
                 ]
             ],
             [
                 'name' => 'مفرش سرير',
                 'services' => [
-                    3 => 50
+                    4 => 50
                 ]
             ],
             [
                 'name' => 'ستارة خفيفة',
                 'services' => [
-                    3 => 20
+                    4 => 20
                 ]
             ],
             [
                 'name' => 'ستارة تقيلة',
                 'services' => [
-                    3 => 50
+                    4 => 50
                 ]
             ],
             [
                 'name' => 'كفر مرتبة',
                 'services' => [
-                    3 => 25
+                    4 => 25
                 ]
             ],
             [
                 'name' => 'مخدة كبيرة',
                 'services' => [
-                    3 => 30
+                    4 => 30
                 ]
             ],
             [
                 'name' => 'مخدة صغيرة',
                 'services' => [
-                    3 => 15
+                    4 => 15
                 ]
             ]
         ];
@@ -305,7 +312,8 @@ class ItemServiceSeeder extends Seeder
                 $itemServices[] = [
                     'item_id' => $created_item->id,
                     'service_id' => $service_id,
-                    'price' => $price
+                    'price' => $price,
+                    'note' => $item['note'] ?? null
                 ];
 
                 // Or
@@ -313,7 +321,8 @@ class ItemServiceSeeder extends Seeder
 //                    $created_item->id,
 //                    [
 //                        'service_id' => $service_id,
-//                        'price' => $price
+//                        'price' => $price,
+//                        'note' => $item['note'] ?? null
 //                    ]
 //                );
             }

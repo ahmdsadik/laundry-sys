@@ -1,4 +1,4 @@
-<x-main-layout :title="config('app.name') . ' | ' . 'الموظفون'">
+<x-app-layout :title="config('app.name') . ' | ' . 'الموظفون'">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">الموظفون /</span> قائمة الموظفون</h4>
 
     <!-- Basic Bootstrap Table -->
@@ -11,35 +11,43 @@
         <div class="table-responsive text-nowrap">
             <table class="table table-hover table-striped">
                 <thead>
-                    <tr>
-                        <th>الأسم</th>
-                        <th>البريد</th>
-                        <th>الهاتف</th>
-                        <th>الدور</th>
-                        <th>حالة الحساب</th>
-                        <th>التحكم</th>
-                    </tr>
+                <tr>
+                    <th>الأسم</th>
+                    <th>الهاتف</th>
+                    <th>الدور</th>
+                    <th>حالة الحساب</th>
+                    <th>تاريخ التعيين</th>
+                    <th>التحكم</th>
+                </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                    @forelse($users as $user)
-                        <tr>
-                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><a
-                                        href="{{ route('users.edit', $user) }}">{{ $user->name }}</a></strong>
-                            </td>
-                            <td>{{ $user->email }}</td>
-                            <td>
-                                {{ $user->phone }}
-                            </td>
-                            <td>{{ $user->readable_role }}</td>
-                            <td><span @class([
+                @forelse($users as $user)
+                    <tr>
+                        <td>
+                            <strong>
+                                <a href="{{ route('users.show', $user) }}">{{ $user->name }}</a>
+                            </strong>
+                        </td>
+                        <td>
+                            {{ $user->phone }}
+                        </td>
+                        <td>{{ $user->readable_role }}</td>
+                        <td>
+                            <span @class([
                                 'badge me-1',
                                 'bg-label-hover-primary' => !$user->isSuspended(),
                                 'bg-label-hover-danger' => $user->isSuspended(),
-                            ])>{{ $user->readable_status }}</span></td>
-                            <td>
+                            ])>{{ $user->readable_status }}
+                            </span>
+                        </td>
+                        <td>
+                            {{ $user->created_at->format('Y-m-d') }}
+                        </td>
+                        <td>
+                            @if (!$user->isAdmin() || auth()->user()->isSuperAdmin() )
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
+                                            data-bs-toggle="dropdown">
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
@@ -47,20 +55,22 @@
                                                 class="bx bx-edit-alt me-1"></i>تعديل</a>
                                         <form method="POST" action="{{ route('users.password-reset', $user) }}">
                                             @csrf
-                                            <a class="dropdown-item" href="{{ route('users.password-reset', $user) }}"
-                                                style="text-align:start"
-                                                onclick="event.preventDefault();
-                            this.closest('form').submit();">
+                                            <a class="dropdown-item"
+                                               href="{{ route('users.password-reset', $user) }}"
+                                               style="text-align:start"
+                                               onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
 
                                                 <i class='bx bx-reset me-1'></i>إستعادة كلمة المرور</a>
                                         </form>
-                                        <form method="POST" action="{{ route('users.suspension.toggle', $user) }}">
+                                        <form method="POST"
+                                              action="{{ route('users.toggle-suspension', $user) }}">
                                             @csrf
                                             <a class="dropdown-item"
-                                                href="{{ route('users.suspension.toggle', $user) }}"
-                                                style="text-align:start"
-                                                onclick="event.preventDefault();
-                            this.closest('form').submit();">
+                                               href="{{ route('users.toggle-suspension', $user) }}"
+                                               style="text-align:start"
+                                               onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
                                                 @if ($user->isSuspended())
                                                     <i class='bx bx-transfer-alt me-1'></i>
                                                     تفعيل الحساب
@@ -74,28 +84,29 @@
                                             @csrf
                                             @method('DELETE')
                                             <a class="dropdown-item" href="{{ route('users.destroy', $user) }}"
-                                                style="text-align:start"
-                                                onclick="event.preventDefault(); if (confirm('هل تريد حذف الموظف من النظام ؟')) { this.closest('form').submit(); }">
+                                               style="text-align:start"
+                                               onclick="event.preventDefault(); if (confirm('هل تريد حذف الموظف من النظام ؟')) { this.closest('form').submit(); }">
                                                 <i class="bx bx-trash me-1"></i>حذف
                                             </a>
                                         </form>
                                     </div>
                                 </div>
-                            </td>
-                        </tr>
+                            @endif
+                        </td>
+                    </tr>
 
-                    @empty
-                        <tr>
-                            <td class="text-center" colspan="6"><strong>لا يوحد بيانات</strong></td>
-                        </tr>
-                    @endforelse
+                @empty
+                    <tr>
+                        <td class="text-center" colspan="6"><strong>لا يوجد بيانات</strong></td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
 
-            <div class="mt-3 px-3">
+            <div class="mt-4 px-4">
                 {{ $users->links() }}
             </div>
         </div>
     </div>
     <!--/ Basic Bootstrap Table -->
-</x-main-layout>
+</x-app-layout>

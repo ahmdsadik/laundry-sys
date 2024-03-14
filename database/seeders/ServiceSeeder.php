@@ -14,27 +14,14 @@ class ServiceSeeder extends Seeder
     public function run(): void
     {
         $services = [
-            [
-                'name' => 'كي',
-                'description' => 'كي'
-            ],
-            [
-                'name' => 'تنظيف',
-                'description' => 'تنظيف'
-            ],
-            [
-                'name' => 'صباغه',
-                'description' => 'صباغه'
-            ],
-            [
-                'name' => 'غسيل',
-                'description' => 'غسيل'
-            ]
+            'كي',
+            'تنظيف',
+            'صباغه',
+            'غسيل',
         ];
         foreach ($services as $service) {
             Service::create([
-                'name' => $service['name'],
-                'description' => $service['description']
+                'name' => $service,
             ]);
         }
     }

@@ -1,4 +1,4 @@
-<x-main-layout :title="config('app.name') . ' | ' . 'الاصناف'">
+<x-app-layout :title="config('app.name') . ' | ' . 'الاصناف'">
 
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">الاصناف /</span> قائمة الاصناف</h4>
 
@@ -27,10 +27,11 @@
                     @forelse($items as $item)
                         <tr>
                             <td>
-                                <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                <a href="{{ route('items.edit', $item) }}">
                                 <strong>
                                     {{ $item->name }}
                                 </strong>
+                                </a>
                             </td>
                             <td>
                                 <!-- Dropdown toggle button -->
@@ -58,17 +59,17 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="text-center" colspan="6"><strong>لا يوحد بيانات</strong></td>
+                            <td class="text-center" colspan="2"><strong>لا يوجد بيانات</strong></td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
             <!-- Pagination links -->
-            <div class="mt-3 px-3">
+            <div class="mt-4 px-4">
                 {{ $items->links() }}
             </div>
         </div>
 
     </div>
 
-</x-main-layout>
+</x-app-layout>

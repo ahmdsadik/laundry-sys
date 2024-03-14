@@ -10,16 +10,14 @@ class UserUpdateRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return auth()->user()->isAdmin();
+        return  auth()->user()->role->value < $this->user->role->value && $this?->role != Roles::SUPER_ADMIN->value;
     }
 
     public function rules(): array
     {
         return [
-            'first_name' => ['required', 'string'],
-            'last_name' => ['required', 'string'],
-            'email' => ['required', 'email', 'max:254', 'unique:users,email,' . $this->user->id],
-            'phone' => ['required', 'numeric', 'regex:/^01[0-9]{9}$/', 'unique:users,phone,' . $this->user->id],
+            'name' => ['required', 'string'],
+            'phone' => ['required', 'numeric', 'regex:/^01[0125]{1}[0-9]{8}$/', 'unique:users,phone,' . $this->user->id],
             'role' => ['required', Rule::in(Roles::cases())],
         ];
     }
@@ -27,13 +25,10 @@ class UserUpdateRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'first_name' => 'الأسم الأول',
-            'last_name' => 'الأسم الأخير',
-            'email' => 'البريد',
+            'name' => 'الأسم',
             'phone' => 'الهاتف',
             'hire_date' => 'تاريخ التعيين',
             'role' => 'الدور',
         ];
     }
-
 }

@@ -14,23 +14,17 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public const DEFAULT_PASSWORD = 'altaqwa1230';
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'phone',
-        'email',
         'password',
         'role',
         'status',
-        'hire_date',
-        'email_verified_at',
     ];
 
     /**
@@ -49,15 +43,15 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'role' => Roles::class,
-        'status' => UserStatus::class
+        'status' => UserStatus::class,
     ];
 
     public function getReadableRoleAttribute(): string
     {
         return match ($this->role) {
+            Roles::SUPER_ADMIN => 'مدير التطبيق',
             Roles::ADMIN => 'مدير',
             default => 'موظف'
         };
@@ -71,14 +65,19 @@ class User extends Authenticatable
         };
     }
 
-    public function getNameAttribute(): string
+    public function isSuperAdmin(): bool
     {
-        return "{$this->first_name} {$this->last_name}";
+        return $this->role === Roles::SUPER_ADMIN;
     }
 
     public function isAdmin(): bool
     {
-        return auth()->user()->role === Roles::ADMIN;
+        return $this->role === Roles::ADMIN;
+    }
+
+    public function isAdministrator(): bool
+    {
+        return $this->role === Roles::ADMIN || $this->role === Roles::SUPER_ADMIN;
     }
 
     public function isSuspended(): bool

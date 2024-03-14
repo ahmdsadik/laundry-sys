@@ -12,7 +12,7 @@ class ServiceUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->isAdministrator();
     }
 
     /**
@@ -24,14 +24,12 @@ class ServiceUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:services,name,' . $this->service->id,
-            'description' => 'required'
         ];
     }
     public function attributes(): array
     {
         return [
             'name' => 'اسم الخدمه',
-            'description' => 'الوصف',
         ];
     }
 }

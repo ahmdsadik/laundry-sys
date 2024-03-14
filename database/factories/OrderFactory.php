@@ -16,13 +16,17 @@ class OrderFactory extends Factory
 
     public function definition(): array
     {
+        $created_by_customer = $this->faker->boolean;
         return [
             'order_code' => $this->faker->word(),
             'total_price' => $this->faker->randomNumber(),
-            'status' => $this->faker->randomElement(OrderStatus::cases()),
-            'payment_status' => $this->faker->randomElement(PaymentStatus::cases()),
+            'final_total_price' => $this->faker->randomNumber(),
+            'has_deferred_payment' => $this->faker->boolean(),
+            'status' => $this->faker->randomElement(OrderStatus::class),
+            'payment_status' => $this->faker->randomElement(PaymentStatus::class),
             'customer_id' => Customer::inRandomOrder()->first()->id,
-            'user_id' => User::inRandomOrder()->first()->id,
+            'user_id' => $created_by_customer ? null : User::inRandomOrder()->first()->id,
+            'created_by_customer' => $created_by_customer,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

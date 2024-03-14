@@ -8,15 +8,16 @@ class ItemServiceUpdateRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->isAdministrator();
     }
 
     public function rules(): array
     {
         return [
-            'service_id' => ['required', 'exists:services'],
-            'item_id' => ['required', 'exists:items'],
-            'price' => ['nullable', 'numeric']
+            'service_id' => ['required', 'exists:services,id'],
+            'item_id' => ['required', 'exists:items,id'],
+            'price' => ['nullable', 'numeric'],
+            'note' => ['nullable', 'string', 'max:255']
         ];
     }
 
@@ -25,7 +26,8 @@ class ItemServiceUpdateRequest extends FormRequest
         return [
             'service_id' => 'الخدمة',
             'item_id' => 'القطعة',
-            'price' => 'السعر'
+            'price' => 'السعر',
+            'note' => 'الملاحظه'
         ];
     }
 }
