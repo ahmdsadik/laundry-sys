@@ -1,4 +1,4 @@
-# Laundry System
+# Laundry Management System
 
 ## Overview
 
