@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ExpensesType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -10,7 +11,7 @@ return new class extends Migration {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', [1, 2, 3])->comment('1 => Salary, 2 => Orders, 3 => Others');
+            $table->enum('type', ExpensesType::values());
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
             $table->unsignedDecimal('value');
             $table->string('description')->nullable();

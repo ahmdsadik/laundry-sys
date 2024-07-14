@@ -48,23 +48,6 @@ class User extends Authenticatable
         'status' => UserStatus::class,
     ];
 
-    public function getReadableRoleAttribute(): string
-    {
-        return match ($this->role) {
-            Roles::SUPER_ADMIN => 'مدير التطبيق',
-            Roles::ADMIN => 'مدير',
-            default => 'موظف'
-        };
-    }
-
-    public function getReadableStatusAttribute(): string
-    {
-        return match ($this->status) {
-            UserStatus::ACTIVE => 'نشط',
-            default => 'موقوف'
-        };
-    }
-
     public function isSuperAdmin(): bool
     {
         return $this->role === Roles::SUPER_ADMIN;

@@ -53,9 +53,9 @@
                 <div>
                     <select id="order-status" class="form-select" wire:model.live="orderStatus">
                         <option value>الكل</option>
-                        @foreach ( \App\Models\Order::statusValues() as $key => $value )
-                            <option wire:key="{{ 'Order-'. $key }}" value="{{ $key }}">
-                                {{ $value }}
+                        @foreach ( \App\Enums\OrderStatus::cases() as $orderStatus )
+                            <option wire:key="{{ 'OrderStatus-'. $orderStatus->value }}" value="{{ $orderStatus->value }}">
+                                {{ $orderStatus->label() }}
                             </option>
                         @endforeach
                     </select>
@@ -72,9 +72,9 @@
                 <div>
                     <select id="order-payment-status" class="form-select" wire:model.live="paymentStatus">
                         <option value>الكل</option>
-                        @foreach ( \App\Models\Order::paymentStatusValues() as $key => $value )
-                            <option wire:key="{{ 'Payment-'. $key }}" value="{{ $key }}">
-                                {{ $value }}
+                        @foreach ( \App\Enums\PaymentStatus::cases() as $paymentStatus )
+                            <option wire:key="{{ 'Payment-'. $paymentStatus->value }}" value="{{ $paymentStatus->value }}">
+                                {{ $paymentStatus->label() }}
                             </option>
                         @endforeach
                     </select>
@@ -123,9 +123,9 @@
                             <label x-show="!showBadge" x-cloak for="orderStatus">
                                 <select id="orderStatus" class="form-select"
                                         @change="$wire.changeStatus( '{{ $order->id }}' , $el.value )">
-                                    @foreach ( \App\Models\Order::statusValues() as $key => $value )
-                                        <option @selected($key == $order->status->value) value="{{ $key }}">
-                                            {{ $value }}
+                                    @foreach ( \App\Enums\OrderStatus::cases() as $orderStatus )
+                                        <option @selected($orderStatus->value == $order->status->value) value="{{ $orderStatus->value }}">
+                                            {{ $orderStatus->label() }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -138,7 +138,7 @@
                                     'bg-label-hover-success' => $order->status ===  \App\Enums\OrderStatus::COMPLETED,
                                     'bg-label-hover-danger' => $order->status === \App\Enums\OrderStatus::CANCELLED,
                                 ])>
-                                {{  $order->readable_order_status }}
+                                {{  $order->status->label() }}
                                 </span>
 
                         </td>
@@ -148,9 +148,9 @@
                             <label x-show="!showBadge" x-cloak for="paymentStatus">
                                 <select id="paymentStatus" class="form-select"
                                         @change="$wire.changePaymentStatus('{{ $order->id }}', $el.value )">
-                                    @foreach ( \App\Models\Order::paymentStatusValues() as $key => $value )
-                                        <option @selected($key == $order->payment_status->value)  value="{{ $key }}">
-                                            {{ $value }}
+                                    @foreach ( \App\Enums\PaymentStatus::cases() as $paymentStatus )
+                                        <option @selected($paymentStatus->value == $order->payment_status->value)  value="{{ $paymentStatus->value }}">
+                                            {{ $paymentStatus->label() }}
                                         </option>
                                     @endforeach
                                 </select>

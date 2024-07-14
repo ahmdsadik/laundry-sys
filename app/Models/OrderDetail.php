@@ -39,11 +39,4 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(Service::class);
     }
-//
-//    public function services(): BelongsToMany
-//    {
-//        return $this->belongsToMany(Service::class, 'order_details_services')
-//            ->as('order_services')
-//            ->withPivot(['price']);
-//    }
 }

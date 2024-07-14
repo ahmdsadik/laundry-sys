@@ -23,7 +23,7 @@
                             الهاتف : {{ $user->phone }}
                         </div>
                         <div class="col-md-6">
-                            الدور : {{ $user->readable_role }}
+                            الدور : {{ $user->role->label() }}
                         </div>
                         <div class="col-md-6">
                             تاريخ التعيين : {{ $user->created_at->format('Y-m-d') }}

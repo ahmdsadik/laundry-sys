@@ -13,13 +13,6 @@ class Item extends Model
         'name',
     ];
 
-    public function services(): BelongsToMany
-    {
-        return $this->belongsToMany(Service::class)
-            ->as('details')
-            ->withPivot(['id','price','note']);
-    }
-
     protected static function booted()
     {
         self::saved(function () {
@@ -29,5 +22,13 @@ class Item extends Model
         self::deleted(function () {
             Cache::forget('items_for_livewire');
         });
+    }
+
+    ########################## Relations ##########################
+    public function services(): BelongsToMany
+    {
+        return $this->belongsToMany(Service::class)
+            ->as('details')
+            ->withPivot(['id', 'price', 'note']);
     }
 }

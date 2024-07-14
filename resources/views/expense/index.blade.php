@@ -37,9 +37,9 @@
                 <div>
                     <select id="expense-type" class="form-select" wire:model.live="type">
                         <option value>الكل</option>
-                        @foreach ( \App\Models\Expense::typeValues() as $value => $type )
-                            <option wire:key="{{ 'Type-'. $value }}" value="{{ $value }}">
-                                {{ $type }}
+                        @foreach ( \App\Enums\ExpensesType::cases() as $expenseType )
+                            <option wire:key="{{ 'Type-'. $expenseType->value }}" value="{{ $expenseType->value }}">
+                                {{ $expenseType->label() }}
                             </option>
                         @endforeach
                     </select>
@@ -95,7 +95,7 @@
                             </a>
                         </td>
                         <td>
-                            {{ $expense->readable_type }}
+                            {{ $expense->type->label() }}
                         </td>
                         <td>
                             {{ $expense->value }}

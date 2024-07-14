@@ -24,8 +24,8 @@
                                 <label for="type" class="form-label">نوع المصروف</label>
                                 <select id="type" class="select2 form-select" name="type" x-model="type">
                                     <option selected disabled value>أختر نوع</option>
-                                    @foreach(\App\Models\Expense::typeValues() as $value =>  $type)
-                                        <option value="{{ $value }}">{{ $type }}</option>
+                                    @foreach(\App\Enums\ExpensesType::cases() as $expenseType)
+                                        <option value="{{ $expenseType->value }}">{{ $expenseType->label() }}</option>
                                     @endforeach
                                 </select>
                                 <x-input-error key="type"/>

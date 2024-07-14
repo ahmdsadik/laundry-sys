@@ -34,7 +34,7 @@
                             <div class="flex-grow-1" style="text-align:start;padding-right:15px">
                                 <span class="fw-medium d-block">{{ auth()->user()->name }}</span>
                                 <small class="text-muted">
-                                    {{ auth()->user()->readable_role }}
+                                    {{ auth()->user()->role->label() }}
                                 </small>
                             </div>
                         </div>

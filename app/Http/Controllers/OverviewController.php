@@ -16,12 +16,12 @@ use Illuminate\Http\Request;
 
 class OverviewController extends Controller
 {
-//    /**
-//     * Show Statistics
-//     *
-//     * @param Request $request
-//     * @return Application|Factory|View|\Illuminate\Foundation\Application|\Illuminate\View\View
-//     */
+    /**
+     * Show Statistics
+     *
+     * @param Request $request
+     * @return Application|Factory|View|\Illuminate\Foundation\Application|\Illuminate\View\View
+     */
     public function __invoke(Request $request)
     {
         $data = [];

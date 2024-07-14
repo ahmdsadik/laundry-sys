@@ -23,24 +23,7 @@ class Expense extends Model
         'type' => ExpensesType::class
     ];
 
-    public function getReadableTypeAttribute(): string
-    {
-        return match ($this->type) {
-            ExpensesType::SALARY => 'مرتبات',
-            ExpensesType::ORDERS => 'طلبات',
-            ExpensesType::OTHERS => 'اخري'
-        };
-    }
-
-    public static function typeValues(): array
-    {
-        return [
-            ExpensesType::SALARY->value => 'مرتبات',
-            ExpensesType::ORDERS->value => 'طلبات',
-            ExpensesType::OTHERS->value => 'اخري',
-        ];
-    }
-
+    ########################## Relations ##########################
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

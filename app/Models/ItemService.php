@@ -21,6 +21,8 @@ class ItemService extends Model
         'note'
     ];
 
+    ########################## Relations ##########################
+
     public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class);

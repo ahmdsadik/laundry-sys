@@ -31,7 +31,7 @@
                         <td>
                             {{ $user->phone }}
                         </td>
-                        <td>{{ $user->readable_role }}</td>
+                        <td>{{ $user->role->label() }}</td>
                         <td>
                             <span @class([
                                 'badge me-1',

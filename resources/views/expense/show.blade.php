@@ -21,7 +21,7 @@
                         <div class="mb-3 col-4">
                             <label for="type" class="form-label">نوع المصروف</label>
                             <span class="d-block">
-                                {{ $expense->readable_type }}
+                                {{ $expense->type->label() }}
                                 </span>
                         </div>
                         @if($expense->user_id)

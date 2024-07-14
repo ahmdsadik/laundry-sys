@@ -36,35 +36,9 @@ class Order extends Model
         'payment_type' => PaymentType::class
     ];
 
-    public function getReadableOrderStatusAttribute(): string
-    {
-        return match ($this->status) {
-            OrderStatus::PENDING => 'إنتظار',
-            OrderStatus::PROCESSING => 'قيد العمل',
-            OrderStatus::COMPLETED => 'مكتمل',
-            OrderStatus::CANCELLED => 'ألغيت'
-        };
-    }
-
-    public function getReadablePaymentStatusAttribute(): string
-    {
-        return match ($this->payment_status) {
-            PaymentStatus::PAID => 'مدفوع',
-            PaymentStatus::UNPAID => 'لم يتم الدفع'
-        };
-    }
-
-    public function getReadablePaymentTypeAttribute(): string
-    {
-        return match ($this->payment_type) {
-            PaymentType::CASH => 'دفع كاش',
-            PaymentType::DEFERRED => 'دفع آجل',
-        };
-    }
-
     protected static function booted()
     {
-        static::creating(function (Order $order) {
+        self::creating(function (Order $order) {
             $order->order_code = self::getNextOrderCode();
 
             if (auth()->user() instanceof User) {
@@ -84,7 +58,7 @@ class Order extends Model
         return now()->format('yn') . '0001';
     }
 
-    ########################## Relations ################################
+    ########################## Relations ##########################
 
     public function customer(): BelongsTo
     {
@@ -99,25 +73,5 @@ class Order extends Model
     public function orderDetails(): HasMany
     {
         return $this->hasMany(OrderDetail::class, 'order_id');
-    }
-
-    ##################### Static #########################3
-
-    public static function statusValues(): array
-    {
-        return [
-            OrderStatus::PENDING->value => 'إنتظار',
-            OrderStatus::PROCESSING->value => 'قيد العمل',
-            OrderStatus::COMPLETED->value => 'مكتمل',
-            OrderStatus::CANCELLED->value => 'ألغيت',
-        ];
-    }
-
-    public static function paymentStatusValues(): array
-    {
-        return [
-            PaymentStatus::PAID->value => 'مدفوع',
-            PaymentStatus::UNPAID->value => 'لم يتم الدفع',
-        ];
     }
 }

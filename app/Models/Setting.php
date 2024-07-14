@@ -15,15 +15,11 @@ class Setting extends Model
         'img'
     ];
 
-    public function getImgUrlAttribute()
+    protected static function booted()
     {
-        if ($this->img)
-            if (Storage::disk('public')->exists($this->img))
-                return Storage::disk('public')->url($this->img);
-            else
-                return '';
-
-        return $this->img;
+        self::saved(function (Setting $setting) {
+            Cache::forget('settings.' . $setting->key);
+        });
     }
 
     public static function cachedSettingByKey($key)
@@ -31,10 +27,14 @@ class Setting extends Model
         return Cache::rememberForever('settings.' . $key, fn() => self::firstWhere('key', $key));
     }
 
-    protected static function booted()
+    public function getImgUrlAttribute()
     {
-        self::saved(function (Setting $setting) {
-            Cache::forget('settings.' . $setting->key);
-        });
+        if ($this->img) {
+            if (Storage::disk('public')->exists($this->img)) {
+                return Storage::disk('public')->url($this->img);
+            }
+            return '';
+        }
+        return $this->img;
     }
 }
