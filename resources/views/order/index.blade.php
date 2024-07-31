@@ -160,7 +160,7 @@
                                 'badge me-1',
                                 'bg-label-hover-success' => $order->payment_status ===  \App\Enums\PaymentStatus::PAID,
                                 'bg-label-hover-danger' => $order->payment_status === \App\Enums\PaymentStatus::UNPAID,
-                            ])>{{  $order->readable_payment_status }}</span>
+                            ])>{{  $order->payment_status->label() }}</span>
                         </td>
                         <td>{{  $order->total_price }} جنية</td>
                         <td>
